@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import './assets/css/default.min.css';
-import { getUsers } from './actions/index';
+import { getUsers, getProducts } from './actions/index';
 
 class App extends Component {
-  state = {users: []}
+  state = {products: []}
 
   componentDidMount() {
-    getUsers().then((users) => this.setState({users}))
+    getProducts().then((products) => {
+
+      return this.setState({products});
+    })
   }
 
   render() {
     return (
       <div className="App">
         <h1>Users</h1>
-        {this.state.users.map(user =>
-          <div key={user.id}>{user.username}</div>
+        {this.state.products.map(product =>
+          <div key={product.uid}>{product.name}</div>
         )}
       </div>
     );
