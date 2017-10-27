@@ -9,9 +9,9 @@ exports.down = function(knex, Promise) {
 
 function createProductsTable(knex, Promise) {
   return knex.schema.createTable('products', function(table) {
-    table.increments('uid').primary();
+    table.increments('id').primary();
     table.string('name');
-    table.timestamps();
+    table.timestamps(false, true);
  });
 }
 
