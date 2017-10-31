@@ -10,19 +10,21 @@ self.addEventListener('activate', function(event) {
   const promisesToExecute = [];
 
   for (let i = 1; i < 11; i++) {
-    promisesToExecute.push(getProducts({start: i, searchTerm: 'cereal'}))
+    promisesToExecute.push(fetchWalmartProducts({start: i, searchTerm: 'cereal'}))
   }
 
   Promise.all(promisesToExecute)
-  .then((result) => {
-    debugger
-    // forEach through results
-    // get items
-    // put them in knex insert statement
-    // promise.all(knex inserts)
-  })
-});
+  .then((results) => {
 
-self.addEventListener('fetch', function(event) {
-  console.log('[service worker fetching]', event.request.url);
+    let products = [];
+
+    // forEach through results
+    // get array of all items
+    results.forEach((query) => {
+      if (query.items && query.items.length) {
+        products = products.concat(query.items);
+      }
+    });
+
+  })
 });

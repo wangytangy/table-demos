@@ -1,4 +1,4 @@
-function getProducts({start = 1, searchTerm = '', numItems = 25} = {}) {
+function fetchWalmartProducts({start = 1, searchTerm = '', numItems = 25} = {}) {
   const API_KEY = 'svfdzspqj5rc8teu2g6d39c2';
 
   // circumvent the CORS issue with proxy server: "cors-anywhere" app
@@ -19,6 +19,9 @@ function getProducts({start = 1, searchTerm = '', numItems = 25} = {}) {
   });
 }
 
-function saveProductsToDB({products = []} ={}) {
 
+function insertProducts(products = []) {
+  return fetch('/products', { method: 'POST', body: JSON.stringify(products)})
+    .then(res => res.json())
+    .catch(err => console.error('error inserting products: ', err));
 }
