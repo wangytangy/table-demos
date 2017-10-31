@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './assets/css/default.min.css';
-import { getUsers, getProducts } from './actions/index';
+import { getProducts } from './actions/index';
 
 class App extends Component {
   state = {products: []}
@@ -17,7 +17,7 @@ class App extends Component {
       <div className="App">
         <h1>Users</h1>
         {this.state.products.map(product =>
-          <div key={product.uid}>{product.name}</div>
+          <div key={product.id}>{product.name}</div>
         )}
       </div>
     );

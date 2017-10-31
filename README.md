@@ -14,6 +14,7 @@ Getting Started
 
 3) Start the Express server
     - `cd` into `/walmart_api/backend`
+    - run  `npm install`
     - run `npm start`
     - this sets up the backend server which will receive requests from the front-end Javascript code
     - the server is running on http://localhost:3001
