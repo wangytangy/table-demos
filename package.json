@@ -6,6 +6,7 @@
     "express": "^4.16.2",
     "express-generator": "^4.15.5",
     "knex": "^0.13.0",
+    "lodash": "^4.17.4",
     "nodemon": "^1.12.1",
     "pg": "^7.3.0",
     "react": "^16.0.0",

@@ -6,9 +6,9 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js')
+  navigator.serviceWorker.register('./worker/sw.js')
     .then((registration) => {
-      console.log('service worker registered!', registration);
+      console.log('service worker registered!');
     })
     .catch((err) => {
       console.log('service worker registration failed', err);
