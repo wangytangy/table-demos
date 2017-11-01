@@ -6,14 +6,9 @@ const config = require('../../knexfile'),
       knex   = require('knex')(config[env]);
 
 router.get('/', function(req, res, next) {
-  console.log('[products router] GET request');
-  return knex('products')
+  console.log('[keywords router] GET request');
+  return knex('keywords')
     .then((result) => res.send(result));
 });
-
-router.post('/', function(req, res, next) {
-  console.log('[products router] POST request: ', req.body);
-  return Promise.resolve();
-})
 
 module.exports = router;
