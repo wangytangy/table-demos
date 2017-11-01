@@ -1,4 +1,17 @@
 .interface {
-  width: 100%;
-  display: block;
+  display: flex;
+  justify-content: center;
+
+  // delete later
+  border: 1px solid red;
+
+
+  .component-container {
+    display: flex;
+    flex-direction: column;
+    padding: 50px 70px 50px 70px;
+
+    // delete later
+    border: 1px solid blue;
+  }
 }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { getProducts } from '../../actions';
 import ProductsTable from './products_table';
 
 class TableManager extends Component {
@@ -12,14 +11,9 @@ class TableManager extends Component {
     }
   }
 
-  componentDidMount() {
-    // fetch keywords from DB and query Walmart API
-  }
-
   render() {
     return (
       <div className='table-manager'>
-        <h1>Table Manager</h1>
         <ProductsTable
           headers={this.state.tableHeaders}
           className='products-table'

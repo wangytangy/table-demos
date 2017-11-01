@@ -28,6 +28,7 @@ class ProductsTable extends Component {
       <TableHeader
         adjustForCheckbox={this.state.tableProps.showCheckboxes}
         displaySelectAll={this.state.tableProps.showCheckboxes}
+        className='table-header'
         >
         <TableRow>
           {headers}

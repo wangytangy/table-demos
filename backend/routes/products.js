@@ -11,9 +11,4 @@ router.get('/', function(req, res, next) {
     .then((result) => res.send(result));
 });
 
-router.post('/', function(req, res, next) {
-  console.log('[products router] POST request: ', req.body);
-  return Promise.resolve();
-})
-
 module.exports = router;
