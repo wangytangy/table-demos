@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './assets/css/default.min.css';
 
-import TableManager from './react/tableManager';
+import Interface from './react/interface';
 
 class App extends Component {
   render() {
     return (
-      <TableManager />
+      <Interface />
     );
   }
 }
