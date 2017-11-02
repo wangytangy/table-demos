@@ -8,3 +8,20 @@ export function aggregateWalmartItems({searchResults = [], path = ''} = {}) {
     return accum.concat(itemsList);
   }, []);
 }
+
+export function sanitizeWalmartItems(items = []) {
+  return items.map((item) => {
+    return _.pick(item, [
+      'categoryPath',
+      'customerRating',
+      'customerRatingImage',
+      'itemId',
+      'name',
+      'numReviews',
+      'productUrl',
+      'salePrice',
+      'shortDescription',
+      'thumbnailImage'
+    ])
+  });
+}

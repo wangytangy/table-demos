@@ -1,4 +1,4 @@
-import { aggregateWalmartItems } from './utils';
+import { aggregateWalmartItems, sanitizeWalmartItems } from './utils';
 
 export function populateDB() {
   return fetch('/keywords', { headers: { 'content-type': 'application/json' }})
@@ -18,13 +18,22 @@ export function populateDB() {
 
       return Promise.all(APICalls)
         .then((searchResults) => {
-            console.log('walmart api results', searchResults);
+          console.log('walmart api results', searchResults);
           return searchResults;
-        })
+        }).catch((err) => console.error('Walmart API error', err));
     })
     .then((searchResults) => {
       const allItems = aggregateWalmartItems({searchResults, path: 'items'});
-      console.log('aggreated items', allItems);
+      const itemsToInsert = sanitizeWalmartItems(allItems);
+      return itemsToInsert;
+    })
+    .then((itemsToInsert) => {
+      console.log('items to insert', itemsToInsert);
+      debugger
+      const myRequest = new Request('/products', {method: 'POST', body: JSON.stringify(itemsToInsert)});
+      fetch(myRequest)
+        .then(() => console.log('successfully inserted products'))
+        .catch((err) => console.error('error inserting products', err));
     })
     .catch(err => console.error('error fetching populating DB: ', err));
 }

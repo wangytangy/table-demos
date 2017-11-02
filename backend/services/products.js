@@ -1,14 +1,22 @@
 const productServices = (knex) => {
 
+  // add filter parameters later
+  function getProducts() {
+    return knex('products')
+      .then((result) => result)
+      .catch((err) => console.error('error fetching products', err));
+  }
 
   function insertProducts(products = []) {
-    return fetch('/products', { method: 'POST', body: JSON.stringify(products)})
-      .then(res => res.json())
-      .catch(err => console.error('error inserting products: ', err));
+    
+    if (products.length) {
+      return knex('products').insert(products);
+    }
   }
 
   return {
-    insertProducts: insertProducts;
+    getProducts: getProducts,
+    insertProducts: insertProducts,
   }
 }
 
