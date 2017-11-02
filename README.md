@@ -27,3 +27,6 @@ Getting Started
 
 
 5) Open http://localhost:3000 in Chrome to use the app if it hasn't opened already
+
+For Development:
+    - Ideally use Node version `7.10.1` (Node-inspector has trouble attaching debugger with older versions of Node)
