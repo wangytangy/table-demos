@@ -13,12 +13,15 @@ export function populateDB() {
       let APICalls = [];
       keywordNames.forEach((keyword) => {
         // for now just fetch 1 page of results (25 items) for each keyword
-        APICalls = APICalls.concat(searchWalmartAPI({searchTerm: keyword, numPages: 1}));
+        APICalls = APICalls.concat(searchWalmartAPI({
+          searchTerm: keyword,
+          numPages: 1,
+          numItems: 10
+        }));
       });
 
       return Promise.all(APICalls)
         .then((searchResults) => {
-          console.log('walmart api results', searchResults);
           return searchResults;
         }).catch((err) => console.error('Walmart API error', err));
     })

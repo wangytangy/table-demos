@@ -1,3 +1,5 @@
+const _ = require('lodash');
+
 const productServices = (knex) => {
 
   // add filter parameters later
@@ -7,16 +9,27 @@ const productServices = (knex) => {
       .catch((err) => console.error('error fetching products', err));
   }
 
-  function insertProducts(products = []) {
-    
+  function upsertProducts(products = []) {
+    const itemIds = [];
+    products.forEach((product) => itemIds.push(_.get(product, 'itemId', 0)));
+
     if (products.length) {
-      return knex('products').insert(products);
+      return knex('products')
+      .whereIn('itemId', itemIds)
+      .del()
+      .then(() => {
+        return knex('products').insert(products);
+      })
+      .then((result) => {
+        console.log('successfully added products', result);
+      })
+      .catch((err) => console.log('error inserting products', err));
     }
   }
 
   return {
     getProducts: getProducts,
-    insertProducts: insertProducts,
+    upsertProducts: upsertProducts,
   }
 }
 

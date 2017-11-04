@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   console.log('[products router] POST request');
   const products = req.body || [];
-  productsServices.insertProducts(products);
+  productsServices.upsertProducts(products);
 });
 
 module.exports = router;
