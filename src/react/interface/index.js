@@ -8,6 +8,9 @@ class Interface extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      products: [],
+    }
   }
 
   componentDidMount() {
@@ -15,19 +18,23 @@ class Interface extends Component {
     return populateDB()
     .then(() => getProducts())
     .then((products) => {
-      console.log('products: ', products);
-      debugger
+      this.setState({products});
     });
   }
 
   render() {
+    const {
+      products,
+    } = this.state;
 
     return (
       <div className='interface'>
         <div className='component-container'>
           <Search />
           {/* pagination component */}
-          <TableManager />
+          <TableManager 
+            products={products}
+            />
         </div>
       </div>
     );

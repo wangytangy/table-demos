@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ProductsTable from './products_table';
+import PropTypes from 'prop-types';
 
 class TableManager extends Component {
 
@@ -12,11 +13,16 @@ class TableManager extends Component {
   }
 
   render() {
+    const {
+      products
+    } = this.props;
+
     return (
       <div className='table-manager'>
         <ProductsTable
           headers={this.state.tableHeaders}
           className='products-table'
+          products={products}
         />
       </div>
     );
@@ -24,6 +30,6 @@ class TableManager extends Component {
 }
 
 TableManager.propTypes = {
-
+  products: PropTypes.array.isRequired,
 }
 export default TableManager;

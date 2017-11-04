@@ -23,7 +23,8 @@ class ProductsTable extends Component {
   }
 
   renderHeaders = () => {
-    const headers = this.props.headers.map((header, i) => <TableHeaderColumn key={i}>{header}</TableHeaderColumn>)
+    const headers = this.props.headers.map((header, i) => <TableHeaderColumn key={i}>{header}</TableHeaderColumn>);
+
     return (
       <TableHeader
         adjustForCheckbox={this.state.tableProps.showCheckboxes}
@@ -37,12 +38,44 @@ class ProductsTable extends Component {
     );
   }
 
+  renderRows = () => {
+
+    return this.props.products.map((p) => {
+      return (
+        <TableRow key={p.id}>
+          <TableRowColumn>
+            <div>{p.name}</div>
+            <img src={p.thumbnailImage} />
+          </TableRowColumn>
+          <TableRowColumn>{p.name}</TableRowColumn> // needs to be brand name AND editable
+          <TableRowColumn>{p.categoryPath}</TableRowColumn>
+          <TableRowColumn>${p.salePrice}</TableRowColumn>
+          <TableRowColumn>${p.salePrice}</TableRowColumn> // needs to be MSRP
+          <TableRowColumn>
+            <img src={p.customerRatingImage} />
+            <div>({p.customerRating})</div>
+          </TableRowColumn>
+
+        </TableRow>
+      );
+    });
+
+  }
+
   render() {
+
+    const {
+      tableProps
+    } = this.state;
+
     return (
       <Table
-        selectable={this.state.tableProps.showCheckboxes}
+        selectable={tableProps.showCheckboxes}
         >
         {this.renderHeaders()}
+        <TableBody displayRowCheckbox={tableProps.showCheckboxes}>
+          {this.renderRows()}
+        </TableBody>
       </Table>
     );
   }
@@ -51,6 +84,7 @@ class ProductsTable extends Component {
 ProductsTable.propTypes = {
   headers: PropTypes.array.isRequired,
   className: PropTypes.string,
+  products: PropTypes.array.isRequired,
 }
 
 export default ProductsTable;
