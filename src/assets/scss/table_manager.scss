@@ -1,10 +1,64 @@
 .table-manager {
   width: 100%;
 
-  border: 1px solid green;
+  .products-table {
 
+    // header and columns
+    .Product, .product-name {
+      width: 30%;
+      position: relative;
+    }
 
-  .table-header {
-    background-color: #eee;
+    .Brand-Name, .brand-name {
+      width: 15%;
+    }
+
+    .Category, .category {
+      width: 20%;
+    }
+
+    .Price, .price {
+      width: 7%;
+    }
+
+    .MSRP, .msrp {
+      width: 7%;
+    }
+
+    .Reviews, .ratings {
+      width: 13%;
+    }
+
+    .table-header {
+      background-color: #eee;
+    }
+
+    .table-body {
+
+      .product-name {
+        .product-name-container {
+          display: flex;
+          align-items: center;
+
+          .open-in-new {
+            position: absolute;
+            right: 0px;
+          }
+
+          .name-image-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+
+            span {
+              text-overflow: ellipsis;
+              white-space: nowrap;
+              overflow: hidden;
+            }
+          }
+        }
+      }
+    }
   }
+
 }

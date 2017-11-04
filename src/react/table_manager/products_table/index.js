@@ -23,7 +23,18 @@ class ProductsTable extends Component {
   }
 
   renderHeaders = () => {
-    const headers = this.props.headers.map((header, i) => <TableHeaderColumn key={i}>{header}</TableHeaderColumn>);
+    const headers = this.props.headers
+      .map((header, i) => {
+        return (
+          <TableHeaderColumn
+            key={i}
+            className={header.split(' ').join('-')}
+            style={{'color': '#000', 'fontSize': '16px'}}
+            >
+            {header}
+          </TableHeaderColumn>
+        );
+      });
 
     return (
       <TableHeader
@@ -43,17 +54,27 @@ class ProductsTable extends Component {
     return this.props.products.map((p) => {
       return (
         <TableRow key={p.id}>
-          <TableRowColumn>
-            <div>{p.name}</div>
-            <img src={p.thumbnailImage} />
+          <TableRowColumn
+            className='row-col product-name'
+            style={{'padding': '10px 40px 10px 10px'}}>
+            <div className='product-name-container'>
+              <div className='name-image-container'>
+                <img src={p.thumbnailImage} />
+                <span>{p.name}</span>
+              </div>
+              <a href={p.productUrl} className='open-in-new'><i className="material-icons">open_in_new</i></a>
+            </div>
           </TableRowColumn>
-          <TableRowColumn>{p.name}</TableRowColumn> // needs to be brand name AND editable
-          <TableRowColumn>{p.categoryPath}</TableRowColumn>
-          <TableRowColumn>${p.salePrice}</TableRowColumn>
-          <TableRowColumn>${p.salePrice}</TableRowColumn> // needs to be MSRP
-          <TableRowColumn>
-            <img src={p.customerRatingImage} />
-            <div>({p.customerRating})</div>
+          // needs to be brand name AND editable textfield
+          <TableRowColumn className='row-col brand-name'>{p.name}</TableRowColumn>
+          <TableRowColumn className='row-col category'>{p.categoryPath}</TableRowColumn>
+          <TableRowColumn className='row-col price'>${p.salePrice}</TableRowColumn>
+          <TableRowColumn className='row-col msrp'>${p.salePrice}</TableRowColumn> // needs to be MSRP
+          <TableRowColumn className='row-col ratings'>
+            <div className='ratings-container'>
+              <img src={p.customerRatingImage} />
+              <span>({p.numReviews})</span>
+            </div>
           </TableRowColumn>
 
         </TableRow>
@@ -71,9 +92,10 @@ class ProductsTable extends Component {
     return (
       <Table
         selectable={tableProps.showCheckboxes}
+        className='products-table'
         >
         {this.renderHeaders()}
-        <TableBody displayRowCheckbox={tableProps.showCheckboxes}>
+        <TableBody className='table-body' displayRowCheckbox={tableProps.showCheckboxes}>
           {this.renderRows()}
         </TableBody>
       </Table>
