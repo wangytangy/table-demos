@@ -1,5 +1,8 @@
 export function getProducts() {
-  return fetch('/products')
-    .then(res => res.json())
-    .catch(err => console.error('error fetching products: ', err));
+  console.log('fetching products');
+  return fetch('/products', { headers: { 'content-type': 'application/json' }})
+    .then((data) => {
+      return data.json();
+    })
+    .catch((err) => console.error('error fetching products: ', err));
 }

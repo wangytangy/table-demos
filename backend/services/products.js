@@ -1,28 +1,23 @@
 const _ = require('lodash');
 
 const productServices = (knex) => {
-
-  // add filter parameters later
   function getProducts() {
-    return knex('products')
-      .then((result) => result)
+    // add filter parameters later
+    return knex('products').select('*').then((result) => {
+        return result;
+      })
       .catch((err) => console.error('error fetching products', err));
   }
 
   function upsertProducts(products = []) {
-    const itemIds = [];
-    products.forEach((product) => itemIds.push(_.get(product, 'itemId', 0)));
+    // we are doing an upsert so we don't add
+    // duplicate products each time we refresh the app and populate the DB
+    const itemIds = products.map((product) => _.get(product, 'itemId'));
 
     if (products.length) {
       return knex('products')
-      .whereIn('itemId', itemIds)
-      .del()
-      .then(() => {
-        return knex('products').insert(products);
-      })
-      .then((result) => {
-        console.log('successfully added products', result);
-      })
+      .whereIn('itemId', itemIds).del()
+      .then(() => knex('products').insert(products))
       .catch((err) => console.log('error inserting products', err));
     }
   }

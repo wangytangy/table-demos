@@ -9,16 +9,18 @@ const productsServices = require('../services/products')(knex);
 
 router.get('/', function(req, res, next) {
   console.log('[products router] GET request');
-  productsServices.getProducts()
+  return productsServices.getProducts()
   .then((result) => {
-    res.send(result)
+    res.send(result);
   });
 });
 
 router.post('/', function(req, res, next) {
   console.log('[products router] POST request');
   const products = req.body || [];
-  productsServices.upsertProducts(products);
+  return productsServices.upsertProducts(products).then(() => {
+    res.send(Promise.resolve());
+  });
 });
 
 module.exports = router;

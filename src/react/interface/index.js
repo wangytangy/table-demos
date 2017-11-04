@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TableManager from '../table_manager';
 import Search from '../search_bar';
 import { populateDB } from '../../actions/keywords';
+import { getProducts } from '../../actions/products';
 
 class Interface extends Component {
 
@@ -11,7 +12,12 @@ class Interface extends Component {
 
   componentDidMount() {
     // fetch keywords from DB and query Walmart API
-    populateDB();
+    return populateDB()
+    .then(() => getProducts())
+    .then((products) => {
+      console.log('products: ', products);
+      debugger
+    });
   }
 
   render() {
