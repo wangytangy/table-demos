@@ -22,7 +22,7 @@ class TableManager extends Component {
         <ProductsTable
           headers={this.state.tableHeaders}
           className='products-table'
-          products={products}
+          products={products || []}
         />
       </div>
     );

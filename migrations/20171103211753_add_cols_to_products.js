@@ -9,6 +9,7 @@ exports.down = function(knex, Promise) {
 
 function addColumnsToProducts(knex, Promise) {
   return knex.schema.table('products', (table) => {
+    table.string('brandName');
     table.string('categoryPath');
     table.string('customerRating');
     table.string('customerRatingImage');
@@ -33,7 +34,9 @@ function dropColumnsToProducts(knex, Promise) {
       'productUrl',
       'salePrice',
       'shortDescription',
-      'thumbnailImage'
+      'thumbnailImage',
+      'msrp',
+      'brandName'
     ])
   });
 }

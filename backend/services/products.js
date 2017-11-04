@@ -1,12 +1,22 @@
 const _ = require('lodash');
 
 const productServices = (knex) => {
-  function getProducts() {
-    // add filter parameters later
-    return knex('products').select('*').then((result) => {
+
+  function getProducts(searchTerm = '') {
+    if (searchTerm) {
+      return knex('products')
+        .where('name', 'ILIKE', `%${searchTerm}%`)
+        .orWhere('categoryPath', 'ILIKE', `%${searchTerm}%`)
+        .select()
+        .then((result) => {
+          return result;
+      }).catch((err) => console.error('error fetching products', err));
+    } else {
+      return knex('products').select('*').then((result) => {
         return result;
-      })
-      .catch((err) => console.error('error fetching products', err));
+      }).catch((err) => console.error('error fetching products', err));
+    }
+
   }
 
   function upsertProducts(products = []) {

@@ -3,16 +3,20 @@ var router = express.Router();
 
 const config = require('../../knexfile'),
       env    = 'development',
-      knex   = require('knex')(config[env]);
+      knex   = require('knex')(config[env]),
+      _      = require('lodash');
 
 const productsServices = require('../services/products')(knex);
 
 router.get('/', function(req, res, next) {
   console.log('[products router] GET request');
-  return productsServices.getProducts()
+
+  const searchTerm = _.get(req.query, 'query', '');
+
+  return productsServices.getProducts(searchTerm)
   .then((result) => {
     res.send(result);
-  });
+  }).catch((err) => console.error('error fetching products', err));
 });
 
 router.post('/', function(req, res, next) {

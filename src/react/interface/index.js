@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TableManager from '../table_manager';
 import Search from '../search_bar';
 import { populateDB } from '../../actions/keywords';
-import { getProducts } from '../../actions/products';
+import { getProducts, searchProducts } from '../../actions/products';
 
 class Interface extends Component {
 
@@ -22,6 +22,12 @@ class Interface extends Component {
     });
   }
 
+  onSearchProducts = (searchTerm) => {
+    searchProducts(searchTerm).then((products) => {
+      this.setState({products});
+    });
+  }
+
   render() {
     const {
       products,
@@ -30,9 +36,11 @@ class Interface extends Component {
     return (
       <div className='interface'>
         <div className='component-container'>
-          <Search />
+          <Search
+            searchProducts={this.onSearchProducts}
+            />
           {/* pagination component */}
-          <TableManager 
+          <TableManager
             products={products}
             />
         </div>

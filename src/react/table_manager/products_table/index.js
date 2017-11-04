@@ -51,6 +51,10 @@ class ProductsTable extends Component {
 
   renderRows = () => {
 
+    if (this.props.products.length === 0) {
+      return <div className='no-products-message'>No products to show</div>
+    }
+
     return this.props.products.map((p) => {
       return (
         <TableRow key={p.id}>
@@ -66,7 +70,7 @@ class ProductsTable extends Component {
             </div>
           </TableRowColumn>
           // needs to be brand name AND editable textfield
-          <TableRowColumn className='row-col brand-name'>{p.name}</TableRowColumn>
+          <TableRowColumn className='row-col brand-name'>{p.brandName}</TableRowColumn>
           <TableRowColumn className='row-col category'>{p.categoryPath}</TableRowColumn>
           <TableRowColumn className='row-col price'>${p.salePrice}</TableRowColumn>
           <TableRowColumn className='row-col msrp'>{p.msrp ? `$${p.msrp}` :  '(none)'}</TableRowColumn>

@@ -11,7 +11,7 @@ export function aggregateWalmartItems({searchResults = [], path = ''} = {}) {
 
 export function sanitizeWalmartItems(items = []) {
   return items.map((item) => {
-    return _.pick(item, [
+    const obj = _.pick(item, [
       'categoryPath',
       'customerRating',
       'customerRatingImage',
@@ -23,6 +23,8 @@ export function sanitizeWalmartItems(items = []) {
       'shortDescription',
       'thumbnailImage',
       'msrp'
-    ])
+    ]);
+    obj.brandName = item.name;
+    return obj;
   });
 }
