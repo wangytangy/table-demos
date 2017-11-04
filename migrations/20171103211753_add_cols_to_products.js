@@ -18,6 +18,7 @@ function addColumnsToProducts(knex, Promise) {
     table.decimal('salePrice');
     table.text('shortDescription');
     table.string('thumbnailImage');
+    table.decimal('msrp');
   });
 }
 

@@ -21,7 +21,8 @@ export function sanitizeWalmartItems(items = []) {
       'productUrl',
       'salePrice',
       'shortDescription',
-      'thumbnailImage'
+      'thumbnailImage',
+      'msrp'
     ])
   });
 }

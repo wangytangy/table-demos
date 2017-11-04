@@ -69,7 +69,7 @@ class ProductsTable extends Component {
           <TableRowColumn className='row-col brand-name'>{p.name}</TableRowColumn>
           <TableRowColumn className='row-col category'>{p.categoryPath}</TableRowColumn>
           <TableRowColumn className='row-col price'>${p.salePrice}</TableRowColumn>
-          <TableRowColumn className='row-col msrp'>${p.salePrice}</TableRowColumn> // needs to be MSRP
+          <TableRowColumn className='row-col msrp'>{p.msrp ? `$${p.msrp}` :  '(none)'}</TableRowColumn>
           <TableRowColumn className='row-col ratings'>
             <div className='ratings-container'>
               <img src={p.customerRatingImage} />
