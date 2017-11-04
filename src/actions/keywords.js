@@ -13,7 +13,7 @@ export function populateDB() {
       let APICalls = [];
       keywordNames.forEach((keyword) => {
         // for now just fetch 1 page of results (25 items) for each keyword
-        APICalls = APICalls.concat(searchWalmartAPI({searchTerm: keyword, numPages: 2}));
+        APICalls = APICalls.concat(searchWalmartAPI({searchTerm: keyword, numPages: 1}));
       });
 
       return Promise.all(APICalls)
@@ -29,9 +29,14 @@ export function populateDB() {
     })
     .then((itemsToInsert) => {
       console.log('items to insert', itemsToInsert);
-      debugger
-      const myRequest = new Request('/products', {method: 'POST', body: JSON.stringify(itemsToInsert)});
-      fetch(myRequest)
+      const headers = { 'Accept': 'application/json', 'Content-Type': 'application/json'};
+      const request = new Request('/products', {
+        method: 'POST',
+        body: JSON.stringify(itemsToInsert),
+        headers: headers
+      });
+
+      return fetch(request)
         .then(() => console.log('successfully inserted products'))
         .catch((err) => console.error('error inserting products', err));
     })
