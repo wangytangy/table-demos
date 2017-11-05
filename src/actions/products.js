@@ -4,11 +4,10 @@ export function getProducts() {
     .catch((err) => console.error('error fetching products: ', err));
 }
 
-export function searchProducts(searchTerm = '') {
-
+export function searchProducts({searchTerm = '', sort = { order: 'desc', field: 'name'}} = {}) {
   const url = new URL(`${document.location}/products`);
 
-  const params = { query: searchTerm };
+  const params = { query: searchTerm, sort: JSON.stringify(sort)};
   Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
 
   const headers = { 'Accept': 'application/json', 'Content-Type': 'application/json'};

@@ -4,33 +4,44 @@
   .products-table {
 
     // header and columns
-    .Product, .product-name {
+    .product-name {
       width: 30%;
       position: relative;
+
+      .sort-desc, .sort-asc {
+        position: absolute;
+        right: 0px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
     }
 
-    .Brand-Name, .brand-name {
+    .brand-name {
       width: 15%;
     }
 
-    .Category, .category {
+    .category {
       width: 20%;
     }
 
-    .Price, .price {
+    .price {
       width: 7%;
     }
 
-    .MSRP, .msrp {
+    .msrp {
       width: 7%;
     }
 
-    .Reviews, .ratings {
+    .ratings {
       width: 13%;
     }
 
     .table-header {
       background-color: #eee;
+      .Product {
+      }
     }
 
     .table-body {

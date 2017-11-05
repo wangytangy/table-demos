@@ -2,7 +2,8 @@ const _ = require('lodash');
 
 const productServices = (knex) => {
 
-  function getProducts(searchTerm = '') {
+  function getProducts({searchTerm, sort}) {
+
     if (searchTerm) {
       return knex('products')
         .where('name', 'ILIKE', `%${searchTerm}%`)

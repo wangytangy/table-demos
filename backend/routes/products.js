@@ -12,8 +12,13 @@ router.get('/', function(req, res, next) {
   console.log('[products router] GET request');
 
   const searchTerm = _.get(req.query, 'query', '');
+  let sort = _.get(req.query, 'sort', {order: 'desc', field: 'name'});
 
-  return productsServices.getProducts(searchTerm)
+  if (typeof sort === 'string') {
+    sort = JSON.parse(sort);
+  }
+
+  return productsServices.getProducts({searchTerm: searchTerm, sort: sort})
   .then((result) => {
     res.send(result);
   }).catch((err) => console.error('error fetching products', err));

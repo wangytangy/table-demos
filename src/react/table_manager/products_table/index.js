@@ -18,24 +18,17 @@ class ProductsTable extends Component {
       tableProps: {
         showCheckboxes: false,
         selectable: false,
-      }
+      },
+      sort: { order: 'desc', field: 'name'}
     };
   }
 
-  renderHeaders = () => {
-    const headers = this.props.headers
-      .map((header, i) => {
-        return (
-          <TableHeaderColumn
-            key={i}
-            className={header.split(' ').join('-')}
-            style={{'color': '#000', 'fontSize': '16px'}}
-            >
-            {header}
-          </TableHeaderColumn>
-        );
-      });
+  toggleSort = () => {
+    const sortOrder = this.state.sort.order === 'desc' ? 'asc' : 'desc';
+    this.setState({sort: { order: sortOrder}});
+  }
 
+  renderHeaders = () => {
     return (
       <TableHeader
         adjustForCheckbox={this.state.tableProps.showCheckboxes}
@@ -43,7 +36,45 @@ class ProductsTable extends Component {
         className='table-header'
         >
         <TableRow>
-          {headers}
+            <TableHeaderColumn
+              className='product-name'
+              style={{'color': '#000', 'fontSize': '16px'}}>
+              Product
+              {
+                this.state.sort.order === 'desc' ?
+                  <i
+                    class="material-icons sort-desc" onClick={this.toggleSort}>keyboard_arrow_down
+                  </i> :
+                  <i
+                    class="material-icons sort-asc"  onClick={this.toggleSort}>keyboard_arrow_up
+                  </i>
+                }
+            </TableHeaderColumn>
+          <TableHeaderColumn
+            className='brand-name'
+            style={{'color': '#000', 'fontSize': '16px'}}>
+            Brand Name
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            className='category'
+            style={{'color': '#000', 'fontSize': '16px'}}>
+            Category
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            className='price'
+            style={{'color': '#000', 'fontSize': '16px'}}>
+            Price
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            className='msrp'
+            style={{'color': '#000', 'fontSize': '16px'}}>
+            MSRP
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            className='ratings'
+            style={{'color': '#000', 'fontSize': '16px'}}>
+            Reviews
+          </TableHeaderColumn>
         </TableRow>
       </TableHeader>
     );

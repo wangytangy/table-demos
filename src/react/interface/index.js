@@ -10,6 +10,8 @@ class Interface extends Component {
     super(props);
     this.state = {
       products: [],
+      searchTerm: '',
+      sort: { order: 'desc', field: 'name'},
     }
   }
 
@@ -23,9 +25,11 @@ class Interface extends Component {
   }
 
   onSearchProducts = (searchTerm) => {
-    searchProducts(searchTerm).then((products) => {
-      this.setState({products});
-    });
+    this.setState({searchTerm: searchTerm}, () => {
+      searchProducts({searchTerm: this.state.searchTerm, sort: this.state.sort}).then((products) => {
+        this.setState({products});
+      });
+    })
   }
 
   render() {
