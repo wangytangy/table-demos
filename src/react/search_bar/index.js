@@ -34,6 +34,7 @@ class Search extends Component {
       <div className='search-container'>
         <SearchBar
           className='search-bar'
+          hintText='Search products'
           onChange={(val) => this.onChange(val)}
           onRequestSearch={this.onSearch}
           value={this.state.searchTerms}

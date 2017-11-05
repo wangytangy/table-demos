@@ -5,6 +5,21 @@ const productServices = (knex) => {
   function getProducts({searchTerm, sort}) {
 
     let query = knex('products');
+    let columns = [
+      'id',
+      'categoryPath',
+      'customerRating',
+      'customerRatingImage',
+      'itemId',
+      'name',
+      'brandName',
+      'numReviews',
+      'productUrl',
+      'salePrice',
+      'shortDescription',
+      'thumbnailImage',
+      'msrp'
+    ]
 
     if (searchTerm) {
       query.where('name', 'ILIKE', `%${searchTerm}%`)
@@ -14,6 +29,9 @@ const productServices = (knex) => {
     if (sort) {
       query.orderBy(sort.field, sort.order);
     }
+
+    query.column(knex.raw('count(*) OVER() AS total_count'));
+    query.column(columns);
 
     return query.select().then((result) => {
       return result;

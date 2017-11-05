@@ -1,32 +1,37 @@
 Walmart API
 
-Getting Started
+## Getting Started
 
+Follow the instructions to setup and run the Walmart API tool on http://localhost:3000:
 
-1) NPM install instructions
-    - `cd` into `/walmart_api`
-    - run `npm install`
+1) NPM install - Frontend
+  - [ ] `cd` into `/walmart_api`
+  - [ ] Run `npm install`
 
 2) Database setup
-    - make sure POSTGRES is installed on your computer
-    - run `gulp migrate:createdb` to create database pointing to localhost:3000
-    - run `gulp migrate:latest` to run migrations
+  - [ ] Make sure POSTGRES is installed on your computer
+  - [ ] Run `gulp migrate:createdb` to create database pointing to localhost:3000
+  - [ ] Run `gulp migrate:latest` to run migrations
 
-3) Start the Express server
-    - `cd` into `/walmart_api/backend`
-    - run  `npm install`
-    - run `npm start`
-    - this sets up the backend server which will receive requests from the front-end Javascript code
-    - the server is running on http://localhost:3001
-
+3) NPM install - Backend
+  - [ ] In another terminal tab, `cd` into `/walmart_api/backend`
+  - [ ] Run  `npm install`
+  - [ ] Then run `npm start`
+  - [ ] This sets up the backend server which will receive requests from the frontend
 
 4) Start the React development server
-    - In another terminal, `cd` into `/walmart_api`
-    - run `npm start`
-    - this sets up the React dev server on http://localhost:3000 however the `proxy` line in `package.json` specifies that requests will be made to http://localhost:3001, the backend server we started running in the previous step
+  - [ ] Finally, `cd` into `/walmart_api`
+  - [ ] Run `npm start`
+  - [ ] This sets up the React dev server on `http://localhost:3000` however the `proxy` line in `package.json` specifies that requests will be made to `http://localhost:3001`, the backend server we started running in the previous step
 
+5) Open http://localhost:3000 in Google Chrome to use the app if it hasn't opened already
 
-5) Open http://localhost:3000 in Chrome to use the app if it hasn't opened already
+## How to run locally:
+  - [ ] Follow all instructions under `Getting Started`
 
-For Development:
-    - Ideally use Node version `7.10.1` (Node-inspector has trouble attaching debugger with older versions of Node)
+  #### Debugging the server:
+    - Use Node version `7.10.1` (node-inspector has trouble attaching debuggers with other versions of Node)
+    - In `/walmart_api/backend`, run `npm run debug-start`
+    - In Google Chrome, type in `about:inspect`
+    - Click on `Open dedicated DevTools for Node`
+    - In `Sources` tab, search for files and set your breakpoints!

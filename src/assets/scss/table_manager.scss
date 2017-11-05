@@ -1,6 +1,13 @@
 .table-manager {
   width: 100%;
 
+  .count-display {
+    text-align: center;
+    font-size: 14px;
+    color: #aaa;
+    padding: 20px;
+  }
+
   .products-table {
 
     // header and columns
@@ -17,7 +24,6 @@
           cursor: pointer;
         }
       }
-
     }
 
     .brand-name {
