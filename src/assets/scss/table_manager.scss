@@ -11,6 +11,8 @@
       .sort-desc, .sort-asc {
         position: absolute;
         right: 0px;
+        outline-style:none;
+        
         &:hover {
           cursor: pointer;
         }

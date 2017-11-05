@@ -11,7 +11,7 @@ class Interface extends Component {
     this.state = {
       products: [],
       searchTerm: '',
-      sort: { order: 'desc', field: 'name'},
+      sort: { order: 'asc', field: 'name'},
     }
   }
 

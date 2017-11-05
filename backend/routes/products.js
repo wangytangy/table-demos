@@ -12,7 +12,7 @@ router.get('/', function(req, res, next) {
   console.log('[products router] GET request');
 
   const searchTerm = _.get(req.query, 'query', '');
-  let sort = _.get(req.query, 'sort', {order: 'desc', field: 'name'});
+  let sort = _.get(req.query, 'sort', {order: 'asc', field: 'name'});
 
   if (typeof sort === 'string') {
     sort = JSON.parse(sort);

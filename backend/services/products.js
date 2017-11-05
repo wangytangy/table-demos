@@ -4,20 +4,20 @@ const productServices = (knex) => {
 
   function getProducts({searchTerm, sort}) {
 
+    let query = knex('products');
+
     if (searchTerm) {
-      return knex('products')
-        .where('name', 'ILIKE', `%${searchTerm}%`)
-        .orWhere('categoryPath', 'ILIKE', `%${searchTerm}%`)
-        .select()
-        .then((result) => {
-          return result;
-      }).catch((err) => console.error('error fetching products', err));
-    } else {
-      return knex('products').select('*').then((result) => {
-        return result;
-      }).catch((err) => console.error('error fetching products', err));
+      query.where('name', 'ILIKE', `%${searchTerm}%`)
+        .orWhere('categoryPath', 'ILIKE', `%${searchTerm}%`);
     }
 
+    if (sort) {
+      query.orderBy(sort.field, sort.order);
+    }
+
+    return query.select().then((result) => {
+      return result;
+    }).catch((err) => console.error('error fetching products', err));
   }
 
   function upsertProducts(products = []) {

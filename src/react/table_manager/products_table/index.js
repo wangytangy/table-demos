@@ -19,7 +19,7 @@ class ProductsTable extends Component {
         showCheckboxes: false,
         selectable: false,
       },
-      sort: { order: 'desc', field: 'name'}
+      sort: { order: 'asc', field: 'name'}
     };
   }
 

@@ -4,7 +4,7 @@ export function getProducts() {
     .catch((err) => console.error('error fetching products: ', err));
 }
 
-export function searchProducts({searchTerm = '', sort = { order: 'desc', field: 'name'}} = {}) {
+export function searchProducts({searchTerm = '', sort = { order: 'asc', field: 'name'}} = {}) {
   const url = new URL(`${document.location}/products`);
 
   const params = { query: searchTerm, sort: JSON.stringify(sort)};
