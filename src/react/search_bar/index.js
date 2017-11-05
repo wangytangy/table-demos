@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import SearchBar from 'material-ui-search-bar';
 import _ from 'lodash';
 
@@ -24,7 +25,7 @@ class Search extends Component {
 
   onSearch = () => {
     const searchTerm = _.get(this.state, 'searchTerms', '');
-    if (this.props.searchProducts) this.props.searchProducts(searchTerm);
+    if (this.props.searchProducts) this.props.searchProducts({searchTerm});
   }
 
   render() {
@@ -40,6 +41,10 @@ class Search extends Component {
       </div>
     );
   }
+}
+
+Search.propTypes = {
+  searchProducts: PropTypes.func,
 }
 
 export default Search;

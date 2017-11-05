@@ -25,7 +25,9 @@ class ProductsTable extends Component {
 
   toggleSort = () => {
     const sortOrder = this.state.sort.order === 'desc' ? 'asc' : 'desc';
-    this.setState({sort: { order: sortOrder}});
+    this.setState({sort: { order: sortOrder, field: 'name'}}, () => {
+      if (this.props.searchProducts) this.props.searchProducts({sort: this.state.sort});
+    });
   }
 
   renderHeaders = () => {
@@ -142,6 +144,7 @@ ProductsTable.propTypes = {
   headers: PropTypes.array.isRequired,
   className: PropTypes.string,
   products: PropTypes.array.isRequired,
+  searchProducts: PropTypes.func,
 }
 
 export default ProductsTable;

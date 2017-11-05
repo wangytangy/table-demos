@@ -24,8 +24,8 @@ class Interface extends Component {
     });
   }
 
-  onSearchProducts = (searchTerm) => {
-    this.setState({searchTerm: searchTerm}, () => {
+  onSearchProducts = ({searchTerm = this.state.searchTerm, sort = this.state.sort} = {}) => {
+    this.setState({searchTerm, sort}, () => {
       searchProducts({searchTerm: this.state.searchTerm, sort: this.state.sort}).then((products) => {
         this.setState({products});
       });
@@ -45,6 +45,7 @@ class Interface extends Component {
             />
           {/* pagination component */}
           <TableManager
+            searchProducts={this.onSearchProducts}
             products={products}
             />
         </div>

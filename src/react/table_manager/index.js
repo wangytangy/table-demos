@@ -23,6 +23,7 @@ class TableManager extends Component {
           headers={this.state.tableHeaders}
           className='products-table'
           products={products || []}
+          searchProducts={this.props.searchProducts}
         />
       </div>
     );
@@ -31,5 +32,6 @@ class TableManager extends Component {
 
 TableManager.propTypes = {
   products: PropTypes.array.isRequired,
+  searchProducts: PropTypes.func,
 }
 export default TableManager;
