@@ -8,6 +8,7 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import TextField from 'material-ui/TextField';
 
 class ProductsTable extends Component {
 
@@ -19,7 +20,9 @@ class ProductsTable extends Component {
         showCheckboxes: false,
         selectable: false,
       },
-      sort: { order: 'asc', field: 'name'}
+      sort: { order: 'asc', field: 'name'},
+      currentEditingItemId: null,
+      brandNameEditingValue: '',
     };
   }
 
@@ -28,6 +31,18 @@ class ProductsTable extends Component {
     this.setState({sort: { order: sortOrder, field: 'name'}}, () => {
       if (this.props.searchProducts) this.props.searchProducts({sort: this.state.sort});
     });
+  }
+
+  brandNameOnChange = (event, val) => {
+    this.setState({brandNameEditingValue: val});
+  }
+
+  setCurrentEditingItemId = (itemId) => {
+    this.setState({currentEditingItemId: itemId});
+  }
+
+  resetCurrentEditingItem = () => {
+    this.setState({currentEditingItemId: null, brandNameEditingValue: ''});
   }
 
   renderHeaders = () => {
@@ -88,6 +103,11 @@ class ProductsTable extends Component {
       return <div className='no-products-message'>No products to show</div>
     }
 
+    const {
+      brandNameEditingValue,
+      currentEditingItemId,
+    } = this.state;
+
     return this.props.products.map((p) => {
       return (
         <TableRow key={p.id}>
@@ -103,7 +123,17 @@ class ProductsTable extends Component {
             </div>
           </TableRowColumn>
           // needs to be brand name AND editable textfield
-          <TableRowColumn className='row-col brand-name'>{p.brandName}</TableRowColumn>
+          <TableRowColumn className='row-col brand-name'>
+            <div className='brand-name-container' onClick={() => this.setCurrentEditingItemId(p.itemId)} onBlur={this.resetCurrentEditingItem}>
+              <TextField
+                defaultValue={p.brandName}
+                value={currentEditingItemId === p.itemId ? (brandNameEditingValue || p.brandName) : p.brandName}
+                onChange={this.brandNameOnChange}
+                disabled={currentEditingItemId !== p.itemId}
+                />
+            </div>
+
+          </TableRowColumn>
           <TableRowColumn className='row-col category'>{p.categoryPath}</TableRowColumn>
           <TableRowColumn className='row-col price'>${p.salePrice}</TableRowColumn>
           <TableRowColumn className='row-col msrp'>{p.msrp ? `$${p.msrp}` :  '(none)'}</TableRowColumn>
