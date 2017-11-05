@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import TableManager from '../table_manager';
 import Search from '../search_bar';
 import { populateDB } from '../../actions/keywords';
-import { getProducts, searchProducts } from '../../actions/products';
+import { getProducts, searchProducts, updateProduct } from '../../actions/products';
+import _ from 'lodash';
 
 class Interface extends Component {
 
@@ -32,6 +33,23 @@ class Interface extends Component {
     })
   }
 
+  onSave = (field, itemId, value) => {
+    // update frontend
+    const products = _.cloneDeep(this.state.products);
+    const itemIdx = products.findIndex((item => item.itemId === itemId));
+
+    if (itemIdx >= 0) {
+      const productToUpdate = products[itemIdx] || {};
+      _.set(productToUpdate, field, value);
+      this.setState({products});
+
+      // update backend (don't set state again)
+      updateProduct(productToUpdate);
+    } else {
+      return;
+    }
+  }
+
   render() {
     const {
       products,
@@ -47,6 +65,7 @@ class Interface extends Component {
           <TableManager
             searchProducts={this.onSearchProducts}
             products={products}
+            onSave={this.onSave}
             />
         </div>
       </div>

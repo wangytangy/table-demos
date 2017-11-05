@@ -24,6 +24,7 @@ class TableManager extends Component {
           className='products-table'
           products={products || []}
           searchProducts={this.props.searchProducts}
+          onSave={this.props.onSave}
         />
       </div>
     );
@@ -33,5 +34,6 @@ class TableManager extends Component {
 TableManager.propTypes = {
   products: PropTypes.array.isRequired,
   searchProducts: PropTypes.func,
+  onSave: PropTypes.func,
 }
 export default TableManager;

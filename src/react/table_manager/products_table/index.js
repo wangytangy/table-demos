@@ -9,6 +9,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 
 class ProductsTable extends Component {
 
@@ -34,15 +35,27 @@ class ProductsTable extends Component {
   }
 
   brandNameOnChange = (event, val) => {
-    this.setState({brandNameEditingValue: val});
+    this.setState({brandNameEditingValue: val });
   }
 
-  setCurrentEditingItemId = (itemId) => {
-    this.setState({currentEditingItemId: itemId});
+  setCurrentEditingItemId = (itemId, brandName) => {
+    this.setState({currentEditingItemId: itemId, brandNameEditingValue: brandName});
   }
 
   resetCurrentEditingItem = () => {
-    this.setState({currentEditingItemId: null, brandNameEditingValue: ''});
+    this.setState({currentEditingItemId: null });
+  }
+
+  onSave = () => {
+    const {
+      currentEditingItemId,
+      brandNameEditingValue,
+      products
+    } = this.state;
+
+    if (this.props.onSave) this.props.onSave('brandName', currentEditingItemId, brandNameEditingValue);
+
+    this.resetCurrentEditingItem();
   }
 
   renderHeaders = () => {
@@ -60,10 +73,10 @@ class ProductsTable extends Component {
               {
                 this.state.sort.order === 'desc' ?
                   <i
-                    class="material-icons sort-desc" onClick={this.toggleSort}>keyboard_arrow_down
+                    className="material-icons sort-desc" onClick={this.toggleSort}>keyboard_arrow_down
                   </i> :
                   <i
-                    class="material-icons sort-asc"  onClick={this.toggleSort}>keyboard_arrow_up
+                    className="material-icons sort-asc"  onClick={this.toggleSort}>keyboard_arrow_up
                   </i>
                 }
             </TableHeaderColumn>
@@ -100,7 +113,13 @@ class ProductsTable extends Component {
   renderRows = () => {
 
     if (this.props.products.length === 0) {
-      return <div className='no-products-message'>No products to show</div>
+      return (
+        <TableRow className='no-products-message' style={{'color': '#aaa'}}>
+          <TableRowColumn style={{'textAlign': 'center'}}>
+            <div>No products to show</div>
+          </TableRowColumn>
+        </TableRow>
+      );
     }
 
     const {
@@ -109,6 +128,8 @@ class ProductsTable extends Component {
     } = this.state;
 
     return this.props.products.map((p) => {
+      const isBeingEdited = currentEditingItemId === p.itemId;
+
       return (
         <TableRow key={p.id}>
           <TableRowColumn
@@ -124,15 +145,32 @@ class ProductsTable extends Component {
           </TableRowColumn>
           // needs to be brand name AND editable textfield
           <TableRowColumn className='row-col brand-name'>
-            <div className='brand-name-container' onClick={() => this.setCurrentEditingItemId(p.itemId)} onBlur={this.resetCurrentEditingItem}>
-              <TextField
-                defaultValue={p.brandName}
-                value={currentEditingItemId === p.itemId ? (brandNameEditingValue || p.brandName) : p.brandName}
-                onChange={this.brandNameOnChange}
-                disabled={currentEditingItemId !== p.itemId}
-                />
+            <div
+              className='brand-name-container'
+              >
+              <div onClick={() => this.setCurrentEditingItemId(p.itemId, p.brandName)}>
+                <TextField
+                  id={`${p.id}`}
+                  value={isBeingEdited ? brandNameEditingValue : p.brandName}
+                  onChange={this.brandNameOnChange}
+                  disabled={!isBeingEdited}
+                  underlineShow={isBeingEdited}
+                  />
+              </div>
+              {
+                isBeingEdited &&
+                <FlatButton
+                  className='brand-name-edit-button'
+                  label='save'
+                  backgroundColor='#2474C3'
+                  hoverColor='#3ab0f4'
+                  rippleColor='#7fd0ff'
+                  labelStyle={{'fontSize': '12px'}}
+                  style={{'color': '#fff', 'minWidth': '0px', 'width': '60px', 'lineHeight': '0px'}}
+                  onClick={this.onSave}
+                  />
+              }
             </div>
-
           </TableRowColumn>
           <TableRowColumn className='row-col category'>{p.categoryPath}</TableRowColumn>
           <TableRowColumn className='row-col price'>${p.salePrice}</TableRowColumn>
@@ -175,6 +213,7 @@ ProductsTable.propTypes = {
   className: PropTypes.string,
   products: PropTypes.array.isRequired,
   searchProducts: PropTypes.func,
+  onSave: PropTypes.func,
 }
 
 export default ProductsTable;

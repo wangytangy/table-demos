@@ -32,4 +32,12 @@ router.post('/', function(req, res, next) {
   });
 });
 
+router.put('/:id', function(req, res, next) {
+  console.log('[products router] PUT request');
+  const product = JSON.parse(_.get(req, 'query.product'));
+  return productsServices.upsertProducts([product]).then(() => {
+    res.send(Promise.resolve());
+  });
+});
+
 module.exports = router;
