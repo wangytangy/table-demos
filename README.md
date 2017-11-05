@@ -28,10 +28,18 @@ Follow the instructions to setup and run the Walmart API tool on http://localhos
 
 ## How to run locally:
   - [ ] Follow all instructions under `Getting Started`
+  - [ ] Open project in your text editor
+  - Changes to frontend files should trigger an auto-reload
+
+  #### Running Gulp to compile Sass:
+    - While in `/walmart_api`, run `gulp` in the terminal
+    - Gulp will automatically listen for changes in `*.scss` files and compile the changes
 
   #### Debugging the server:
     - Use Node version `7.10.1` (node-inspector has trouble attaching debuggers with other versions of Node)
-    - In `/walmart_api/backend`, run `npm run debug-start`
+    - While in `/walmart_api/backend`, run `npm run debug-start` in the terminal
     - In Google Chrome, type in `about:inspect`
     - Click on `Open dedicated DevTools for Node`
     - In `Sources` tab, search for files and set your breakpoints!
+
+## Sample Data

@@ -12,7 +12,7 @@
 
     // header and columns
     .product-name {
-      width: 30%;
+      width: 33%;
       position: relative;
 
       .sort-desc, .sort-asc {
@@ -78,6 +78,10 @@
             display: flex;
             align-items: center;
             width: 100%;
+
+            img {
+              width: 20%;
+            }
 
             span {
               text-overflow: ellipsis;
