@@ -32,16 +32,14 @@ export function updateProduct(product) {
   const url = new URL(`${document.location}/products/${itemId}`);
   const jsonProduct = JSON.stringify(product);
 
-  const params = {product: jsonProduct};
-  Object.keys(params).forEach(key => url.searchParams.append(key, params[key]))
-
   const headers = { 'Accept': 'application/json', 'Content-Type': 'application/json'};
   const request = new Request(url, {
     method: 'PUT',
     headers: headers,
+    body: jsonProduct
   });
 
   return fetch(request)
-    .then((data) => data.json())
+    .then((data) => Promise.resolve())
     .catch((err) => console.error('error updating products', err));
 }

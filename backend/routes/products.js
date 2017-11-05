@@ -34,10 +34,11 @@ router.post('/', function(req, res, next) {
 
 router.put('/:id', function(req, res, next) {
   console.log('[products router] PUT request');
-  const product = JSON.parse(_.get(req, 'query.product'));
-  return productsServices.upsertProducts([product]).then(() => {
+  const product = _.get(req, 'body', {});
+  return productsServices.updateProduct(product).then(() => {
     res.send(Promise.resolve());
-  });
+  })
+  .catch((err) => console.error('[products router ]error updating products', err));
 });
 
 module.exports = router;
