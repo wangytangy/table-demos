@@ -13,7 +13,7 @@ function addColumnsToProducts(knex, Promise) {
     table.string('categoryPath');
     table.string('customerRating');
     table.string('customerRatingImage');
-    table.bigInteger('itemId');
+    table.bigInteger('itemId').unique().notNullable();
     table.integer('numReviews');
     table.text('productUrl');
     table.decimal('salePrice');
