@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TableManager from '../table_manager';
 import Search from '../search_bar';
+import KeywordForm from '../keyword_form';
 import { populateDB } from '../../actions/keywords';
 import { getProducts, searchProducts, updateProduct } from '../../actions/products';
 import _ from 'lodash';
@@ -58,6 +59,7 @@ class Interface extends Component {
     return (
       <div className='interface'>
         <div className='component-container'>
+          <KeywordForm />
           <Search
             searchProducts={this.onSearchProducts}
             />
