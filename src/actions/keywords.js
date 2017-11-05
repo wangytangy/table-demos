@@ -62,7 +62,13 @@ export function getWalmartSearchRequests(
     const url = `http://cors-anywhere.herokuapp.com/http://api.walmartlabs.com/v1/search?apiKey=${API_KEY}&query=${searchTerm}&numItems=${numItems}&start=${start}`;
     APICalls.push(
       fetch(url)
-      .then((results) => results.json())
+      .then((results) => {
+        if (results.ok) {
+          return results.json();
+        } else {
+          return { items: [] };
+        }
+      })
       .catch((err) => console.error('error searching Walmart API', err))
     );
   }
