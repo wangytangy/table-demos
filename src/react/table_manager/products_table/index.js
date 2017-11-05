@@ -38,7 +38,7 @@ class ProductsTable extends Component {
     this.setState({brandNameEditingValue: val });
   }
 
-  setCurrentEditingItemId = (itemId, brandName) => {
+  setCurrentEditingItemId = (id, itemId, brandName) => {
     this.setState({currentEditingItemId: itemId, brandNameEditingValue: brandName});
   }
 
@@ -140,7 +140,7 @@ class ProductsTable extends Component {
                 <img src={p.thumbnailImage} />
                 <span>{p.name}</span>
               </div>
-              <a href={p.productUrl} className='open-in-new'><i className="material-icons">open_in_new</i></a>
+              <a target="_blank" href={p.productUrl} className='open-in-new'><i className="material-icons">open_in_new</i></a>
             </div>
           </TableRowColumn>
           // needs to be brand name AND editable textfield
@@ -148,27 +148,43 @@ class ProductsTable extends Component {
             <div
               className='brand-name-container'
               >
-              <div onClick={() => this.setCurrentEditingItemId(p.itemId, p.brandName)}>
+              <div onClick={() => this.setCurrentEditingItemId(p.id, p.itemId, p.brandName)}>
                 <TextField
                   id={`${p.id}`}
                   value={isBeingEdited ? brandNameEditingValue : p.brandName}
                   onChange={this.brandNameOnChange}
                   disabled={!isBeingEdited}
                   underlineShow={isBeingEdited}
+                  style={{'fontSize': '13px'}}
                   />
               </div>
               {
                 isBeingEdited &&
-                <FlatButton
-                  className='brand-name-edit-button'
-                  label='save'
-                  backgroundColor='#2474C3'
-                  hoverColor='#3ab0f4'
-                  rippleColor='#7fd0ff'
-                  labelStyle={{'fontSize': '12px'}}
-                  style={{'color': '#fff', 'minWidth': '0px', 'width': '60px', 'lineHeight': '0px'}}
-                  onClick={this.onSave}
-                  />
+                (
+                  <div>
+                    <FlatButton
+                      className='brand-name-edit-button'
+                      label='save'
+                      backgroundColor='#2474C3'
+                      hoverColor='#3ab0f4'
+                      rippleColor='#7fd0ff'
+                      labelStyle={{'fontSize': '10px'}}
+                      style={{'color': '#fff', 'minWidth': '0px', 'width': '56px', 'lineHeight': '0px'}}
+                      onClick={this.onSave}
+                      />
+                    <FlatButton
+                      className='brand-name-cancel-button'
+                      label='cancel'
+                      backgroundColor='#2474C3'
+                      hoverColor='#3ab0f4'
+                      rippleColor='#7fd0ff'
+                      labelStyle={{'fontSize': '10px'}}
+                      style={{'color': '#fff', 'minWidth': '0px', 'width': '70px', 'lineHeight': '0px', 'marginLeft': '10px'}}
+                      onClick={this.resetCurrentEditingItem}
+                      />
+                  </div>
+                )
+
               }
             </div>
           </TableRowColumn>
