@@ -1,5 +1,26 @@
 import { aggregateWalmartItems, sanitizeWalmartItems } from './utils';
 
+export function addKeyword(keyword) {
+  if (!keyword) return Promise.resolve();
+
+  const headers = { 'Accept': 'application/json', 'Content-Type': 'application/json'};
+  const request = new Request('/keywords', {
+    method: 'POST',
+    body: JSON.stringify({keyword}),
+    headers: headers
+  });
+
+  return fetch(request)
+    .then((result) => {
+      console.log('successfully inserted products');
+      return Promise.resolve();
+    })
+    .catch((err) => {
+      console.error('error inserting keyword', err);
+    })
+
+}
+
 export function populateDB() {
   // step 1: get keywords
   return fetch('/keywords', { headers: { 'content-type': 'application/json' }})
@@ -50,8 +71,8 @@ export function getWalmartSearchRequests(
   {
     start = 1,
     searchTerm = '',
-    numItems = 25,
-    numPages = 1} = {}
+    numItems = 10,
+    numPages = 1} = {} // defaults
 ) {
   const API_KEY = 'svfdzspqj5rc8teu2g6d39c2';
   const APICalls = []

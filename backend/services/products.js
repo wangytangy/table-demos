@@ -59,6 +59,8 @@ const productServices = (knex) => {
     const itemId = _.get(product, 'itemId', null);
     if (!itemId) return Promise.resolve();
 
+    product = _.omit(product, 'total_count');
+
     return knex('products').where({itemId: itemId}).update(product)
       .then(() => Promise.resolve())
       .catch((err) => console.error('error updating products', err));

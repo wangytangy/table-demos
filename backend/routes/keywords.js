@@ -12,4 +12,14 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.post('/', function(req, res, next) {
+  console.log('[keywords router] POST request');
+
+  const keyword = req.body.keyword || '';
+
+  return keywordService.addKeyword(keyword).then(() => {
+    res.send(Promise.resolve());
+  });
+});
+
 module.exports = router;

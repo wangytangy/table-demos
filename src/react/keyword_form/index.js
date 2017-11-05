@@ -15,11 +15,11 @@ class KeywordForm extends Component {
   }
 
   onChange = (val) => {
-
+    this.setState({keywordSearch: val});
   }
 
   onKeywordSearch = () => {
-
+    if (this.props.addKeyword) this.props.addKeyword(this.state.keywordSearch);
   }
 
 
@@ -47,5 +47,10 @@ class KeywordForm extends Component {
     );
   }
 }
+
+KeywordForm.propTypes = {
+  addKeyword: PropTypes.func,
+}
+
 
 export default KeywordForm;

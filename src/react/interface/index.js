@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TableManager from '../table_manager';
 import Search from '../search_bar';
 import KeywordForm from '../keyword_form';
-import { populateDB } from '../../actions/keywords';
+import { populateDB, addKeyword } from '../../actions/keywords';
 import { getProducts, searchProducts, updateProduct } from '../../actions/products';
 import _ from 'lodash';
 
@@ -17,13 +17,22 @@ class Interface extends Component {
     }
   }
 
-  componentDidMount() {
-    // fetch keywords from DB and query Walmart API
-    return populateDB()
-    .then(() => getProducts())
+  onAddKeyword = (keyword) => {
+    addKeyword(keyword).then(() => {
+      return populateDB();
+    })
+    .then(() => {
+      return getProducts();
+    })
     .then((products) => {
       this.setState({products});
     });
+  }
+
+  componentDidMount() {
+    getProducts()
+      .then((products) => this.setState({products}))
+      .catch((err) => console.error('[interface comp] error fetching products', err));
   }
 
   onSearchProducts = ({searchTerm = this.state.searchTerm, sort = this.state.sort} = {}) => {
@@ -59,7 +68,7 @@ class Interface extends Component {
     return (
       <div className='interface'>
         <div className='component-container'>
-          <KeywordForm />
+          <KeywordForm addKeyword={this.onAddKeyword}/>
           <Search
             searchProducts={this.onSearchProducts}
             />
