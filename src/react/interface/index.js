@@ -53,13 +53,12 @@ class Interface extends Component {
   }
 
   componentDidMount() {
-    fetchKeywords().then((keywords) => {
-      this.setState({keywords})
-    }).then(() => {
-      return getProducts();
-    })
-    .then((products) => this.setState({products}))
-    .catch((err) => console.error('[interface comp] error fetching products', err));
+    return populateDB()
+      .then(() => fetchKeywords())
+      .then((keywords) => this.setState({keywords}))
+      .then(() => getProducts())
+      .then((products) => this.setState({products}))
+      .catch((err) => console.error('[interface comp] error fetching products', err));
   }
 
   onSearchProducts = ({searchTerm = this.state.searchTerm, sort = this.state.sort} = {}) => {
