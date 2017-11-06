@@ -2,6 +2,8 @@
 
 This application allows users to add `keyword` search terms to a persistent database. These keywords are then used to search products using the [Walmart Search API](https://developer.walmartlabs.com/docs/read/Search_API), store them in a database, and display them in **searchable**, **sortable**, **edit-able** table.
 
+(https://github.com/wangytangy/walmart_api/blob/master/src/assets/preview.jpg)
+
 ## Getting Started
 
 Follow the instructions to setup and run the Walmart API tool on http://localhost:3000:
