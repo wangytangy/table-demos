@@ -63,7 +63,7 @@ class KeywordForm extends Component {
         <div className='keyword-search-container'>
           <SearchBar
             className='keyword-search-bar'
-            hintText='Search keywords'
+            hintText='Add keywords'
             onChange={(val) => this.onChange(val)}
             onRequestSearch={this.onKeywordSearch}
             value={this.state.keywordSearch}
