@@ -23,8 +23,27 @@ export function addKeyword(keyword) {
     })
     .catch((err) => {
       console.error('error inserting keyword', err);
-    })
+    });
+}
 
+export function deleteKeyword(id) {
+  if (!id) return Promise.resolve();
+
+  const url = new URL(`${document.location}keywords/${id}`);
+
+  const headers = { 'Accept': 'application/json', 'Content-Type': 'application/json'};
+  const request = new Request(url, {
+    method: 'DELETE',
+    headers: headers
+  });
+
+  return fetch(request)
+    .then((result) => {
+      console.log('successfully deleted key');
+    })
+    .catch((err) => {
+      console.error('error deleting key');
+    })
 }
 
 export function populateDB() {

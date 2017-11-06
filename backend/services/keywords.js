@@ -11,17 +11,19 @@ const keywordService = (knex) => {
     return knex('keywords')
     .where({name: keyword}).del()
     .then(() => knex('keywords').insert({name: keyword}))
-    .then((result) => {
-      console.log(result);
-    })
     .catch((err) => {
       console.error('error inserting keyword to DB', err);
     });
   }
 
+  function deleteKeyword(id) {
+    return knex('keywords').where({id}).del();
+  }
+
   return {
     getKeywords: getKeywords,
     addKeyword: addKeyword,
+    deleteKeyword: deleteKeyword,
   }
 }
 

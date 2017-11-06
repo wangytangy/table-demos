@@ -26,17 +26,16 @@ export function updateProduct(product) {
 
   if (itemId === undefined) {
     console.error('must provide itemId to update product');
-    return;
+    return Promise.resolve();
   }
 
   const url = new URL(`${document.location}/products/${itemId}`);
-  const jsonProduct = JSON.stringify(product);
 
   const headers = { 'Accept': 'application/json', 'Content-Type': 'application/json'};
   const request = new Request(url, {
     method: 'PUT',
     headers: headers,
-    body: jsonProduct
+    body: JSON.stringify(product)
   });
 
   return fetch(request)

@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import TableManager from '../table_manager';
 import Search from '../search_bar';
 import KeywordForm from '../keyword_form';
-import { populateDB, addKeyword, fetchKeywords } from '../../actions/keywords';
+import {
+  populateDB,
+  addKeyword,
+  fetchKeywords,
+  deleteKeyword
+} from '../../actions/keywords';
 import { getProducts, searchProducts, updateProduct } from '../../actions/products';
 import _ from 'lodash';
 
@@ -15,19 +20,36 @@ class Interface extends Component {
       keywords: [],
       searchTerm: '',
       sort: { order: 'asc', field: 'name'},
+      errorMessage: ''
     }
   }
 
   onAddKeyword = (keyword) => {
-    addKeyword(keyword).then(() => {
-      return populateDB();
-    })
-    .then(() => {
-      return getProducts();
-    })
-    .then((products) => {
-      this.setState({products});
-    });
+
+    // prevent more than 5 keywords from being added to DB
+    // because Walmart API limit certain num queries per second
+    if (this.state.keywords.length >= 5) {
+      this.setState({
+        errorMessage: 'No more than 5 keywords may be added. Try deleting existing keywords.'
+      });
+      return;
+    }
+
+    return addKeyword(keyword).then(() => populateDB())
+    .then(() => fetchKeywords())
+    .then((keywords) => this.setState({keywords}))
+    .then(() => getProducts())
+    .then((products) => this.setState({products}));
+  }
+
+  onDeleteKeyword = (id) => {
+    // update backend
+    deleteKeyword(id);
+
+    // update frontend
+    const updatedKeywords = this.state.keywords.filter((k) => k.id !== id);
+    const errorMessage = updatedKeywords.length < 5 ? '' : 'No more than 5 keywords may be added. Try deleting existing keywords.'
+    this.setState({keywords: updatedKeywords, errorMessage });
   }
 
   componentDidMount() {
@@ -76,6 +98,8 @@ class Interface extends Component {
           <KeywordForm
             addKeyword={this.onAddKeyword}
             keywords={this.state.keywords}
+            onDeleteKeyword={this.onDeleteKeyword}
+            errorMessage={this.state.errorMessage}
             />
           <Search
             searchProducts={this.onSearchProducts}
