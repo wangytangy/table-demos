@@ -1,14 +1,23 @@
-.keyword-search-container {
-  display: flex;
-  align-items: center;
+.keyword-component-container {
+  display: block;
   padding-bottom: 50px;
   border-bottom: 1px solid #aaa;
 
-  .keyword-search-bar {
+  .keyword-search-container {
+    display: flex;
+    align-items: center;
 
+    .keyword-search-bar {
+
+    }
+
+    .keyword-search-button {
+
+    }
   }
 
-  .keyword-search-button {
-
+  .keyword-display {
+    margin: 20px 0 0 0;
   }
+
 }

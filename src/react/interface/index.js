@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TableManager from '../table_manager';
 import Search from '../search_bar';
 import KeywordForm from '../keyword_form';
-import { populateDB, addKeyword } from '../../actions/keywords';
+import { populateDB, addKeyword, fetchKeywords } from '../../actions/keywords';
 import { getProducts, searchProducts, updateProduct } from '../../actions/products';
 import _ from 'lodash';
 
@@ -12,6 +12,7 @@ class Interface extends Component {
     super(props);
     this.state = {
       products: [],
+      keywords: [],
       searchTerm: '',
       sort: { order: 'asc', field: 'name'},
     }
@@ -30,9 +31,13 @@ class Interface extends Component {
   }
 
   componentDidMount() {
-    getProducts()
-      .then((products) => this.setState({products}))
-      .catch((err) => console.error('[interface comp] error fetching products', err));
+    fetchKeywords().then((keywords) => {
+      this.setState({keywords})
+    }).then(() => {
+      return getProducts();
+    })
+    .then((products) => this.setState({products}))
+    .catch((err) => console.error('[interface comp] error fetching products', err));
   }
 
   onSearchProducts = ({searchTerm = this.state.searchTerm, sort = this.state.sort} = {}) => {
@@ -68,7 +73,10 @@ class Interface extends Component {
     return (
       <div className='interface'>
         <div className='component-container'>
-          <KeywordForm addKeyword={this.onAddKeyword}/>
+          <KeywordForm
+            addKeyword={this.onAddKeyword}
+            keywords={this.state.keywords}
+            />
           <Search
             searchProducts={this.onSearchProducts}
             />

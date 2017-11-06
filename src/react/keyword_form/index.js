@@ -25,24 +25,31 @@ class KeywordForm extends Component {
 
   render() {
     return (
-      <div className='keyword-search-container'>
-        <SearchBar
-          className='keyword-search-bar'
-          hintText='Search keywords'
-          onChange={(val) => this.onChange(val)}
-          onRequestSearch={this.onKeywordSearch}
-          value={this.state.keywordSearch}
-        />
-        <FlatButton
-          className='keyword-search-button'
-          label='Add keywords'
-          backgroundColor='#2474C3'
-          hoverColor='#3ab0f4'
-          rippleColor='#7fd0ff'
-          labelStyle={{'fontSize': '14px'}}
-          style={{'color': '#fff', 'minWidth': '0px', 'width': '140px', 'lineHeight': '0px', 'marginLeft': '20px'}}
-          onClick={this.onKeywordSearch}
-          />
+      <div className='keyword-component-container'>
+        <div className='keyword-search-container'>
+          <SearchBar
+            className='keyword-search-bar'
+            hintText='Search keywords'
+            onChange={(val) => this.onChange(val)}
+            onRequestSearch={this.onKeywordSearch}
+            value={this.state.keywordSearch}
+            />
+          <FlatButton
+            className='keyword-search-button'
+            label='Add keywords'
+            backgroundColor='#2474C3'
+            hoverColor='#3ab0f4'
+            rippleColor='#7fd0ff'
+            labelStyle={{'fontSize': '14px'}}
+            style={{'color': '#fff', 'minWidth': '0px', 'width': '140px', 'lineHeight': '0px', 'marginLeft': '20px'}}
+            onClick={this.onKeywordSearch}
+            />
+        </div>
+        <div className='keyword-display'>
+          <ul>
+            {this.props.keywords.map((k) => <li>{k.name}</li>)}
+          </ul>
+        </div>
       </div>
     );
   }
@@ -50,6 +57,7 @@ class KeywordForm extends Component {
 
 KeywordForm.propTypes = {
   addKeyword: PropTypes.func,
+  keywords: PropTypes.array,
 }
 
 

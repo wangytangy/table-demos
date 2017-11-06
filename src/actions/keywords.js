@@ -1,5 +1,11 @@
 import { aggregateWalmartItems, sanitizeWalmartItems } from './utils';
 
+export function fetchKeywords() {
+  return fetch('/keywords', { headers: { 'content-type': 'application/json' }})
+    .then((data) => data.json())
+    .catch((err) => console.error('error fetching products: ', err));
+}
+
 export function addKeyword(keyword) {
   if (!keyword) return Promise.resolve();
 
