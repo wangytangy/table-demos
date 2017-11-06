@@ -47,15 +47,15 @@ This application is created with a React frontend without Redux due to its limit
   - Changes to frontend files should trigger an auto-reload
 
   #### Running Gulp to compile Sass:
-    - While in `/walmart_api`, run `gulp` in the terminal
-    - Gulp will automatically listen for changes in `*.scss` files and compile the changes
+  - While in `/walmart_api`, run `gulp` in the terminal
+  - Gulp will automatically listen for changes in `*.scss` files and compile the changes
 
   #### Debugging the server:
-    - IF you want to debug the server, use Node version **7.10.1** (**node-inspector** has trouble attaching debuggers with other versions of Node)
-    - While in `/walmart_api/backend`, run `npm run debug-start` in the terminal
-    - In Google Chrome, type in **"about:inspect"** in address bar
-    - Click on `Open dedicated DevTools for Node`
-    - In **Sources** tab, search for files and set your breakpoints!
+  - IF you want to debug the server, use Node version **7.10.1** (**node-inspector** has trouble attaching debuggers with other versions of Node)
+  - While in `/walmart_api/backend`, run `npm run debug-start` in the terminal
+  - In Google Chrome, type in **"about:inspect"** in address bar
+  - Click on `Open dedicated DevTools for Node`
+  - In **Sources** tab, search for files and set your breakpoints!
 
 ## Additional Features
   The following features would improve UI functionality and add business value to the data collection tool.
