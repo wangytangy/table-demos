@@ -9,6 +9,7 @@ This application allows users to add `keyword` search terms to a persistent data
 Follow the instructions to setup and run the Walmart API tool on http://localhost:3000:
 
 1) NPM install - Frontend
+  - [ ] **Make sure Node version 6.2.0 or higher is installed on your computer**
   - [ ] `cd` into `/walmart_api`
   - [ ] Run `npm install`
 
